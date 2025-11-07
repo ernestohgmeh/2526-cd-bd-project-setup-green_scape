@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysqllab:
-    build: .
+    image: mysql:8.0
     container_name: greenscape_mysql
     restart: unless-stopped
     environment:
