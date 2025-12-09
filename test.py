@@ -11,6 +11,7 @@ connection = mq.connect(
     )
 
 cursor = connection.cursor()
+<<<<<<< HEAD
 
 # cursor.execute("SELECT * FROM Usuario LIMIT 5")
 # rows = cursor.fetchall()
@@ -111,3 +112,17 @@ ORDER BY
 #print(pd.read_sql("Select ctr.Tipo from Reaccionar ctr Group By ctr.Tipo ", connection)) #tester
 
 print(se_me_acabo_el_ingles())
+=======
+# cursor.execute("SELECT * FROM Usuario LIMIT 5")
+
+query = """
+SELECT P.NombreComun, G.IDU FROM Planta as P JOIN Gustar as G ON P.IDProd = G.IDProd;
+
+"""
+
+cursor.execute(query)
+
+rows = cursor.fetchall()
+user_table = pd.DataFrame.from_records([row for row in rows])
+print(user_table)
+>>>>>>> a87bc0e (Adding libraries)
