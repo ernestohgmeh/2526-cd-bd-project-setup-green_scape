@@ -3,7 +3,7 @@ import pandas as pd
 
 connection = mq.connect(
         host='localhost',
-        port = '3307',
+        port = 3306,
         user='root',
         password='root',
         database='GreenScape',
@@ -11,7 +11,6 @@ connection = mq.connect(
     )
 
 cursor = connection.cursor()
-<<<<<<< HEAD
 
 # cursor.execute("SELECT * FROM Usuario LIMIT 5")
 # rows = cursor.fetchall()
@@ -150,7 +149,7 @@ ORDER BY
 #print(pd.read_sql(candela, connection)) #tester
 #print(pd.read_sql("Select * from Producto", connection)) #tester
 
-print(se_me_acabo_el_ingles())
+# print(se_me_acabo_el_ingles())
 
 # cursor.execute("SELECT * FROM Usuario LIMIT 5")
 
@@ -164,4 +163,3 @@ cursor.execute(query)
 rows = cursor.fetchall()
 user_table = pd.DataFrame.from_records([row for row in rows])
 print(user_table)
->>>>>>> a87bc0e (Adding libraries)

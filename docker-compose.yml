@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   mysqllab:
-    build: .  # Note: See correction below
+    image: mysql:8.0
     container_name: greenscape_mysql
     restart: unless-stopped
     environment:
@@ -12,11 +10,13 @@ services:
       MYSQL_PASSWORD: greenscape_pass
     ports:
       - "3306:3306"
+    networks:
+      - greenscape_project
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # Added :ro for read-only
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -34,6 +34,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - greenscape_project
     healthcheck:  # Added healthcheck for MongoDB
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/GreenScape --quiet
       interval: 10s
@@ -42,7 +44,7 @@ services:
       start_period: 30s
 
   neo4j:
-    image: neo4j:5-enterprise  # Use community edition if you don't have enterprise license
+    image: neo4j:latest  # Use community edition if you don't have enterprise license
     container_name: greenscape_neo4j
     restart: unless-stopped
     environment:
@@ -54,11 +56,10 @@ services:
     ports:
       - "7474:7474"  # HTTP web interface
       - "7687:7687"  # Bolt protocol
+    networks:
+      - greenscape_project
     volumes:
       - neo4j_data:/data
-      - neo4j_logs:/logs
-      - neo4j_import:/var/lib/neo4j/import
-      - neo4j_plugins:/plugins
     healthcheck:
       test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "neo4j_password", "RETURN 1"]
       interval: 10s
@@ -73,9 +74,7 @@ volumes:
     driver: local
   neo4j_data:
     driver: local
-  neo4j_logs:
-    driver: local
-  neo4j_import:
-    driver: local
-  neo4j_plugins:
-    driver: local
+
+networks:
+  greenscape_project:
+    driver: bridge
