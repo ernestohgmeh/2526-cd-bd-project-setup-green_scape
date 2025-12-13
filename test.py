@@ -146,20 +146,3 @@ WHERE
     TABLE_SCHEMA = 'GreenScape'
 ORDER BY 
     TABLE_NAME, ORDINAL_POSITION;"""
-#print(pd.read_sql(candela, connection)) #tester
-#print(pd.read_sql("Select * from Producto", connection)) #tester
-
-# print(se_me_acabo_el_ingles())
-
-# cursor.execute("SELECT * FROM Usuario LIMIT 5")
-
-query = """
-SELECT P.NombreComun, G.IDU FROM Planta as P JOIN Gustar as G ON P.IDProd = G.IDProd;
-
-"""
-
-cursor.execute(query)
-
-rows = cursor.fetchall()
-user_table = pd.DataFrame.from_records([row for row in rows])
-print(user_table)
