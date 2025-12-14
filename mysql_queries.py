@@ -143,9 +143,13 @@ if __name__ == "__main__":
 
     # Comentar esta parte del codigo a conveniencia
     # Ejecuta todas las consultas
-    for inciso, query_str in queries_dict.items():
-        print(f"Inciso: {inciso}")
-        print(run_query(query_str, connection))
+    # for inciso, query_str in queries_dict.items():
+    #     print(f"Inciso: {inciso}")
+    #     print(run_query(query_str, connection))
 
     # Ejecuta una sola consulta
+<<<<<<< HEAD
     # print(run_query(queries_dict["a"], connection))
+=======
+    print(run_query("SHOW TABLES", connection))
+>>>>>>> e463494 (Zuko de uva)
