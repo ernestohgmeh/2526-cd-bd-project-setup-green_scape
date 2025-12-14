@@ -2,7 +2,7 @@
 
 /* Main app - Frutiger Aero gradient background */
 .stApp {
-    background: linear-gradient(135deg, #d4f1ff 0%, #b8e8d8 100%) !important;
+    background: linear-gradient(135deg, #5beb6b 0%, #92fcd9 100%) !important;
 }
 
 /* Fix ALL text colors - ensure dark text for readability */
