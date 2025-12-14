@@ -8,7 +8,7 @@
 \usepackage{tabularx}
 \usepackage{setspace}
 \usepackage{tikz}
-\usetikzlibrary{er,positioning}  
+\usetikzlibrary{er,positioning}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{arrows, decorations.markings}
 \usetikzlibrary{shapes.geometric}
@@ -34,13 +34,13 @@
 \definecolor{codepurple}{HTML}{C42043}
 \definecolor{backcolour}{HTML}{F2F2F2}
 \definecolor{red}{HTML}{FF0000}
-\definecolor{bookColor}{cmyk}{0,0,0,0.90}  
+\definecolor{bookColor}{cmyk}{0,0,0,0.90}
 \color{bookColor}
 
 \lstset{upquote=true}
 
 \lstdefinestyle{mystyle}{
-	% backgroundcolor=\color{backcolour},   
+	% backgroundcolor=\color{backcolour},
 	commentstyle=\color{codegreen},
 	keywordstyle=\color{codepurple},
 	numberstyle=\numberstyle,
@@ -69,7 +69,7 @@
 \newcommand{\linetomark}{\rule{0.5cm}{0.4pt} }
 
 \begin{document}
-	
+
 	\lstset{
 		literate=%
 		{á}{{\'a}}1
@@ -85,7 +85,7 @@
 		{ž}{{\v{z}}}1
 		{ď}{{\v{d}}}1
 		{ť}{{\v{t}}}1
-		{ň}{{\v{n}}}1                
+		{ň}{{\v{n}}}1
 		{ů}{{\r{u}}}1
 		{Á}{{\'A}}1
 		{Í}{{\'I}}1
@@ -100,96 +100,96 @@
 		{Ž}{{\v{Z}}}1
 		{Ď}{{\v{D}}}1
 		{Ť}{{\v{T}}}1
-		{Ň}{{\v{N}}}1                
-		{Ů}{{\r{U}}}1    
+		{Ň}{{\v{N}}}1
+		{Ů}{{\r{U}}}1
 	}
-	
+
 	\begin{centering}
-		
+
 		\huge Orientación de Proyecto \\[2mm]
-		
+
 		\small Bases de Datos\\
 		Licenciatura en Ciencia de Datos\\
 		Curso: 2025-2026
-		
+
 	\end{centering}
-	
+
 	\vspace{2mm}
-	
+
 	Este documento proporciona una orientación para el proyecto final de la asignatura. \textbf{La realización de este proyecto constituye un ejercicio por equipo de dos estudiantes}.
-	
+
 	\section*{Escenario}
-	
+
 	\textbf{GreenScape} es una plataforma digital de red social dedicada a conectar a entusiastas de las plantas y la jardinería de todo el mundo. Su misión es crear una comunidad global donde los usuarios puedan compartir conocimientos sobre el cultivo y cuidado de plantas, descubrir nuevas especies, contribuir con sus experiencias mediante publicaciones y reacciones, y acceder a una tienda en línea para adquirir plantas y productos relacionados. GreenScape busca democratizar el conocimiento botánico y fomentar prácticas de jardinería sostenible a través de la colaboración y el intercambio de experiencias entre usuarios.
-	
+
 	El equipo ha sido contratado como analistas de datos en la empresa GreenSolutions, creadores de la plataforma GreenScape. Debido a despidos masivos, todo el personal relacionado con el desarrollo de GreenScape ya no se encuentra disponible. Sin embargo, con vistas a mejorar la plataforma en el futuro, la empresa ha encargado obtener información acerca de su utilización por los usuarios e implementar una propuesta de mejora al diseño de la base de datos.
-	
+
 	Como únicos profesionales disponibles con conocimientos técnicos, el equipo desempeñará un papel crucial en la continuidad operativa de GreenScape. El trabajo consistirá en realizar ingeniería inversa sobre la base de datos existente para comprender su estructura y funcionamiento, extraer información valiosa mediante consultas analíticas complejas, identificar patrones de comportamiento de usuarios y vendedores, y proponer mejoras al diseño de la base de datos que amplíen las funcionalidades de la plataforma. Además, será necesario desarrollar herramientas interactivas que permitan a los directivos de la empresa visualizar métricas clave y tomar decisiones informadas sobre el futuro de GreenScape. La capacidad para trabajar en equipo y el dominio de bases de datos será fundamental para el éxito de esta misión.
-	
+
 	En equipo, y sin contar con ayuda de nadie en la empresa que conozca la base de datos de GreenScape, se deberá completar las tareas asignadas por la empresa.
-	
+
 	\section*{Materiales provistos}
-	
+
 	Para el desarrollo del proyecto se le provee de los siguientes recursos disponibles:
-	
+
 	\begin{itemize}
-		\item \textbf{Configuración Docker}: Archivo \texttt{docker-compose.yml} para desplegar un contenedor MySQL con la base de datos GreenScape. 
-		
+		\item \textbf{Configuración Docker}: Archivo \texttt{docker-compose.yml} para desplegar un contenedor MySQL con la base de datos GreenScape.
+
 		\item \textbf{Script de inicialización}: Archivo \texttt{init.sql} con datos iniciales.
-		
+
 		\item \textbf{Documento de orientación}: El presente documento (\texttt{guidelines.tex}) con los requerimientos y las tareas a desarrollar.
-		
+
 		\item \textbf{Instrucciones de uso}: Archivo \texttt{README.md} con instrucciones detalladas para la instalación, configuración y conexión a la base de datos desde diferentes entornos.
 	\end{itemize}
-	
+
 	\section*{Tareas}
-	
+
 	\begin{enumerate}
 		\item Realizar un \textbf{fork} del repositorio del proyecto disponible en \url{https://github.com/Project-Orientations/2526-cd-bd-project-setup-green_scape}. Este repositorio será la base del trabajo y deberá contener todo el código y documentación desarrollada durante el proyecto. Asegurar mantener el repositorio actualizado con los avances.
-		
-		\item A partir de la base de datos proporcionada, elaborar una propuesta de  \textbf{modelo entidad-relación extendido (MERX)} que permita comprender conceptualmente el escenario planteado, respetando la concepción vista en clases. 
-		Se puede utilizar cualquier herramienta para su construcción; sin embargo, se recomienda emplear 
-		\href{https://app.diagrams.net/?src=about}{diagrams.net} o 
+
+		\item A partir de la base de datos proporcionada, elaborar una propuesta de  \textbf{modelo entidad-relación extendido (MERX)} que permita comprender conceptualmente el escenario planteado, respetando la concepción vista en clases.
+		Se puede utilizar cualquier herramienta para su construcción; sin embargo, se recomienda emplear
+		\href{https://app.diagrams.net/?src=about}{diagrams.net} o
 		\href{https://excalidraw.com/}{Excalidraw}.
-		
+
 		\item Escribir código MySQL que responda a los siguientes ejercicios:
-		
+
 		\begin{enumerate}
 			\item \textbf{Listar todos los productos disponibles}: Mostrar todos los productos registrados, incluyendo sus detalles.
-			
+
 			\item \textbf{Contar las reacciones por publicación}: Calcular la cantidad total de reacciones recibidas por cada publicación, incluyendo información sobre la publicación y su autor.
-			
+
 			\item \textbf{Tipos de plantas preferidos}: Listar los tres tipos de plantas que han recibido la mayor cantidad de reacciones positivas, junto al total de reacciones.
-			
+
 			\item \textbf{Usuarios activos en contribuciones y reacciones}: Determinar la actividad de los usuarios mostrando, para cada uno, su información personal y la última fecha (dentro de los últimos seis meses) en que realizó una contribución o reaccionó a una publicación. Si el usuario no presenta actividad reciente, la fecha debe mostrarse como \texttt{NULL}.
-			
+
 			\item \textbf{Publicaciones más populares considerando las reacciones}: Identificar las publicaciones que presentan mayor cantidad de reacciones positivas que negativas, incluyendo sus detalles y la cantidad total de reacciones.
-			
+
 			\item \textbf{Contribuciones constantes}: Mostrar todas las plantas que han recibido contribuciones en dos meses consecutivos.
-			
+
 			\item \textbf{Promedio de actividad}: Determinar el promedio de actividad mensual de los diez usuarios más activos en agregar contenido multimedia a sus publicaciones durante el último año (promedio de videos/fotos agregados por mes).
-			
+
 			\item \textbf{Distribución de edades}: Analizar la distribución de los usuarios por rangos de edad de diez años (por ejemplo: $11-20$, $21-30$, $31-40$, $41-50$, ...). Devolver la cantidad de usuarios y el por ciento de edad por categoría.
-			
+
 			\item \textbf{Productos sin incremento en ventas mensuales}: Identificar los productos que no han mostrado un incremento en sus ventas mes a mes durante el último año.
-			
+
 			\item \textbf{Tendencias de contribución según el clima}: Examinar cómo varían las contribuciones de acuerdo con el tipo de clima, identificando la planta más popular en cada categoría climática.
-			
+
 			\item \textbf{Cambio de preferencia en categorías de plantas}: Identificar a los usuarios que han cambiado su categoría de planta más contribuida al comparar la actividad entre dos años consecutivos.
-			
+
 			\item \textbf{Compras contradictorias}: Destacar a los usuarios que han comprado más plantas no marcadas como "Me gusta" que plantas marcadas como tales.
-			
+
 			\item \textbf{Usuarios de solo texto}: Listar los usuarios que nunca han agregado contenido multimedia a sus publicaciones.
-			
+
 			\item \textbf{Vendedores mejor calificados}: Mostrar los cinco vendedores con mejor calificación promedio, ordenados de forma descendente. De cada uno se debe incluir el total de productos vendidos, calificación promedio, nombre, correo electrónico y dirección particular.
-			
+
 			\item \textbf{\emph{Trigger} de auditoría de precios}: Implementar un disparador que se active automáticamente cuando se modifique el precio de un producto en la tabla \texttt{Producto}. Este recurso debe:
 			\begin{itemize}
 				\item Registrar en una tabla de auditoría (\texttt{Historial\_Precios}) la información del cambio: producto afectado, precio anterior, precio nuevo, fecha y hora del cambio.
 				\item Calcular el porcentaje de cambio en el precio.
 				\item La tabla de auditoría debe ser creada con la estructura apropiada para almacenar estos datos.
 			\end{itemize}
-			
+
 			\item \textbf{Procedimiento almacenado para análisis de actividad de usuario}: Crear un procedimiento almacenado llamado \texttt{sp\_analisis\_usuario} que reciba como parámetros:
 			\begin{itemize}
 				\item Identificador del usuario a analizar
@@ -206,44 +206,44 @@
 				\item Planta más comprada y planta más contribuida
 			\end{itemize}
 			Este procedimiento debe ser invocable desde la aplicación Streamlit, permitiendo al usuario introducir los parámetros de forma interactiva y visualizar los resultados en un formato amigable.
-			
-			\item \textbf{Análisis de influencers y su impacto en ventas}: Identificar a los 5 usuarios ``\emph{influencers}'' (aquellos cuyas publicaciones generan más interacciones) y determinar si existe correlación entre su actividad y las ventas de las plantas con las que interactúan. Para cada \emph{influencer}, calcular: 
+
+			\item \textbf{Análisis de influencers y su impacto en ventas}: Identificar a los 5 usuarios ``\emph{influencers}'' (aquellos cuyas publicaciones generan más interacciones) y determinar si existe correlación entre su actividad y las ventas de las plantas con las que interactúan. Para cada \emph{influencer}, calcular:
 			\begin{enumerate}
-				\item Su puntaje de interacciones ponderado (Me gusta=$1$, Me encanta=$2$, Me asombra=$1.5$, comentarios=$2$); 
-				\item Las plantas con las que más ha interactuado (publicaciones, contribuciones, compras); 
-				\item El incremento porcentual en ventas de esas plantas en las $2$ semanas posteriores a sus publicaciones/contribuciones versus las $2$ semanas anteriores; 
+				\item Su puntaje de interacciones ponderado (Me gusta=$1$, Me encanta=$2$, Me asombra=$1.5$, comentarios=$2$);
+				\item Las plantas con las que más ha interactuado (publicaciones, contribuciones, compras);
+				\item El incremento porcentual en ventas de esas plantas en las $2$ semanas posteriores a sus publicaciones/contribuciones versus las $2$ semanas anteriores;
 				\item La tasa de conversión: porcentaje de usuarios que compraron plantas después de reaccionar a sus publicaciones.
 			\end{enumerate}
-			
-			\item \textbf{Detección de patrones de comportamiento anómalo en vendedores}: Identificar vendedores con patrones de venta sospechosos mediante el análisis de: 
+
+			\item \textbf{Detección de patrones de comportamiento anómalo en vendedores}: Identificar vendedores con patrones de venta sospechosos mediante el análisis de:
 			\begin{enumerate}
-				\item Vendedores que venden el mismo producto a precios significativamente diferentes ($>30\%$ de variación) sin justificación temporal; 
-				\item Vendedores con productos que tienen calificaciones extremadamente polarizadas (muchos $5$ y muchos $1$, pero pocos valores intermedios); 
-				\item  Vendedores cuyos compradores nunca o raramente han comprado otros productos en la plataforma (posible manipulación); 
+				\item Vendedores que venden el mismo producto a precios significativamente diferentes ($>30\%$ de variación) sin justificación temporal;
+				\item Vendedores con productos que tienen calificaciones extremadamente polarizadas (muchos $5$ y muchos $1$, pero pocos valores intermedios);
+				\item  Vendedores cuyos compradores nunca o raramente han comprado otros productos en la plataforma (posible manipulación);
 				\item Productos vendidos por múltiples vendedores donde uno tiene un patrón de ventas muy diferente al resto. Para cada vendedor sospechoso, generar un ``índice de sospecha'' ponderado y listar las evidencias específicas detectadas.
 			\end{enumerate}
-			
+
 		\end{enumerate}
-		
-		
+
+
 		\item Implementar y comparar soluciones para conversaciones en comentarios utilizando diferentes modelos de datos:
-		
+
 		\begin{enumerate}
 			\item Modificar el diseño de la base de datos relacional para permitir conversaciones en los comentarios, es decir, permitir que los usuarios puedan responder comentarios de otros usuarios creando hilos (conversaciones internas).
-			
+
 			\begin{itemize}
 				\item Escribir el código para modificar la base de datos de acuerdo al diseño y generar conversaciones de prueba de longitud no menor que 20.
-				
+
 				\item Escribir código para dado un comentario inicial obtener la conversación entera surgida a partir de dicho comentario.
 			\end{itemize}
-			
+
 			\item Modelar y resolver el mismo problema de conversaciones en comentarios utilizando otro modelo de datos visto en conferencias. Los identificadores de los comentarios deben ser los mismos en ambas bases de datos para facilitar la comparación.
-			
+
 			\item Comparar ambos diseños (relacional y no relacional) de acuerdo a las ventajas y desventajas que presentan para resolver este escenario.
 		\end{enumerate}
-		
+
 		\item Implementar un sistema de documentación jerárquica para las plantas. Cada planta debe tener asociado un \textbf{documento principal} (Ficha Técnica), que contiene información esencial sobre el tipo de planta y sus cuidados necesarios. Además, cada documento principal puede tener asociados múltiples \textbf{documentos secundarios} que complementan la información, tales como:
-		
+
 		\begin{itemize}
 			\item \textbf{Certificado Fitosanitario}: Información sobre el estado de salud y ausencia de plagas de la planta.
 			\item \textbf{Guía de Riego Estacional}: Instrucciones específicas de riego según la estación del año.
@@ -251,30 +251,30 @@
 			\item \textbf{Historial de Crecimiento}: Registro del desarrollo esperado de la planta en diferentes etapas.
 			\item \textbf{Análisis de Suelo}: Especificaciones detalladas sobre el tipo de suelo y nutrientes requeridos.
 		\end{itemize}
-		
+
 		Para esta tarea:
-		
+
 		\begin{itemize}
 			\item Diseñar una solución de almacenamiento apropiada considerando que los documentos tienen estructuras variables y se organizan de forma jerárquica. Los identificadores de las plantas deben coincidir con los de la base de datos provista. Justificar la elección del modelo de datos.
-			
+
 			\item Implementar la solución diseñada para almacenar documentos principales y secundarios asociados a plantas.
-			
+
 			\item Insertar datos de prueba: al menos $5$ fichas técnicas, cada una con un mínimo de $3$ documentos secundarios de tipos diferentes.
-			
+
 			\item Implementar una operación de consulta que, dado el identificador de una planta, retorne todos sus documentos (principal y secundarios) organizados jerárquicamente.
 		\end{itemize}
-		
+
 		\item Desarrollar una aplicación web interactiva utilizando \textbf{Streamlit} que proporcione una interfaz gráfica para interactuar con la base de datos GreenScape. La aplicación debe incluir las siguientes funcionalidades:
-		
+
 		\begin{itemize}
 			\item \textbf{Selector de consultas}: Un desplegable que permita seleccionar cualquiera de las consultas SQL implementadas en las tareas anteriores, mostrando los resultados en una tabla interactiva.
-			
+
 			\item \textbf{Análisis de usuario con procedimiento almacenado}: Interfaz interactiva que permita al usuario introducir los parámetros del procedimiento almacenado \texttt{sp\_analisis\_usuario} (ID de usuario, fecha inicio, fecha fin) y visualizar los resultados del análisis de actividad en formato amigable (tablas, gráficos, métricas) según convenga.
-			
+
 			\item \textbf{Gestión de conversaciones}: Interfaz para crear nuevos comentarios y asociarlos a hilos de conversación existentes, permitiendo la navegación jerárquica de las conversaciones.
-			
+
 			\item \textbf{Explorador de documentos}: Funcionalidad para seleccionar una planta y visualizar todos sus documentos asociados (principales y secundarios) de forma organizada y jerárquica.
-			
+
 			\item \textbf{Gestor de precios de productos}: Interfaz que permita seleccionar un producto, visualizar su precio actual y modificarlo. Esta funcionalidad debe:
 			\begin{itemize}
 				\item Mostrar una lista de productos con sus precios actuales
@@ -283,18 +283,18 @@
 				\item Visualizar la tabla de auditoría con los cambios históricos de precios para el producto seleccionado
 			\end{itemize}
 		\end{itemize}
-		
+
 		La aplicación debe ser completamente funcional, con manejo de errores robusto y una interfaz intuitiva que facilite la interacción con los datos de GreenScape.
-		
+
 	\end{enumerate}
-	
+
 	\section*{Restricciones Técnicas}
-	
+
 	Para el desarrollo de la aplicación Streamlit y la interacción con la base de datos, se deben cumplir las siguientes restricciones técnicas:
-	
+
 	\begin{itemize}
 		\item \textbf{No se admite el uso de ORM}: No se permite utilizar bibliotecas ORM (como SQLAlchemy, Django ORM, Peewee, etc.) para el trabajo con la base de datos. El objetivo es que los estudiantes trabajen directamente con SQL y comprendan las operaciones de base de datos a bajo nivel.
-		
+
 		\item \textbf{Uso obligatorio de bibliotecas SQL nativas}: Debe utilizarse bibliotecas de Python que permitan definir la sintaxis SQL directamente, tales como:
 		\begin{itemize}
 			\item \texttt{mysql-connector-python}
@@ -302,39 +302,38 @@
 			\item \texttt{psycopg2} (para PostgreSQL)
 			\item \texttt{sqlite3} (módulo estándar de Python)
 		\end{itemize}
-		
+
 		\item \textbf{Consultas SQL explícitas}: Todas las operaciones de base de datos deben realizarse mediante consultas SQL escritas explícitamente en el código, sin abstracciones de alto nivel. Esto incluye operaciones de SELECT, INSERT, UPDATE, DELETE, y llamadas a procedimientos almacenados.
-		
+
 	\end{itemize}
-	
+
 	\section*{Entrega y Defensa}
-	
+
 	La entrega y discusión del proyecto se realizará en la \textbf{semana 16} del curso académico, o en fechas posteriores si así se decide y comunica oportunamente.
-	
+
 	\section*{Formato de entrega}
-	
+
 	El equipo deberá preparar un \textbf{repositorio} (público o privado con acceso compartido al profesor) que contenga:
-	
+
 	\begin{itemize}
 		\item \textbf{Imagen del MERX}: Documento en formato \texttt{.pdf} o imagen (\texttt{.png}, \texttt{.jpg}) que muestre el modelo entidad-relación extendido de la base de datos original.
-		
+
 		\item \textbf{Carpeta del proyecto Streamlit}: Carpeta contenedora con el código fuente completo de la aplicación web y todos los scripts SQL utilizados en el proyecto, organizados de manera clara y estructurada.
-		
+
 		\item \textbf{Informe técnico}: Documento en formato \texttt{.pdf} que contenga:
 		\begin{itemize}
 			\item Comparación entre los diseños relacional y no relacional para la implementación de conversaciones en comentarios (Tarea 4.c), incluyendo análisis de ventajas, desventajas y conclusiones sobre cuál modelo resulta más apropiado para este escenario.
 			\item Justificación de la elección del modelo de datos utilizado para el sistema de documentación jerárquica de plantas (Tarea 5), explicando por qué es la solución más apropiada considerando la estructura variable y jerárquica de los documentos.
 			\item Cualquier otra consideración técnica relevante sobre las decisiones de diseño tomadas durante el proyecto.
 		\end{itemize}
-		
+
 		\item \textbf{README}: Archivo \texttt{README.md} con instrucciones claras para la configuración y ejecución del proyecto, incluyendo la estructura del repositorio, requisitos previos, pasos de instalación, y descripción breve de las funcionalidades implementadas.
-		
+
 		\item \textbf{Archivo docker-compose.yml}: Fichero \texttt{docker-compose.yml} actualizado con todas las configuraciones necesarias para desplegar los contenedores de base de datos utilizados en el proyecto (MySQL y cualquier otra base de datos adicional requerida).
 	\end{itemize}
-	
-	\vspace{2mm}
-	
-	\textbf{Nota importante}: Asegurar que el repositorio incluya un archivo \texttt{.gitignore} apropiado que excluya credenciales, archivos temporales y dependencias que puedan ser reinstaladas.
-	
-\end{document}
 
+	\vspace{2mm}
+
+	\textbf{Nota importante}: Asegurar que el repositorio incluya un archivo \texttt{.gitignore} apropiado que excluya credenciales, archivos temporales y dependencias que puedan ser reinstaladas.
+
+\end{document}

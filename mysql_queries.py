@@ -71,7 +71,6 @@ COUNT(*) AS Cant_de_Usuarios,
 FROM Usuario usu
 GROUP BY Rango_de_Edad
 ORDER BY Rango_de_Edad
-<<<<<<< HEAD
 """,
     "i": """
 SELECT
@@ -131,8 +130,6 @@ LEFT JOIN (
 GROUP BY pub.IDU
 ORDER BY Puntaje_de_Interacciones DESC
 LIMIT 5
-=======
->>>>>>> 3024840 (Rezandole a la virgen santisima)
 """,
 }
 
