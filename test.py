@@ -3,7 +3,7 @@ import pandas as pd
 
 connection = mq.connect(
         host='localhost',
-        port = 3306,
+        port = 3307,
         user='root',
         password='root',
         database='GreenScape',
@@ -79,10 +79,9 @@ def Contribuciones_constantes():#revisar por si acaso
     SELECT plt.NombreComun
     FROM Planta plt
     JOIN Contribucion as ctr ON plt.IDProd = ctr.IDProd
-    JOIN Contribucion as octr ON octr.IDU = ctr.IDU
-    WHERE (DATE_FORMAT(ctr.Fecha, '%Y-%m-01') = DATE_ADD(DATE_FORMAT(octr.Fecha, '%Y-%m-01'), INTERVAL 1 MONTH)
-    OR DATE_FORMAT(octr.Fecha, '%Y-%m-01') = DATE_ADD(DATE_FORMAT(ctr.Fecha, '%Y-%m-01'), INTERVAL 1 MONTH))
-    AND ctr.IDProd = octr.IDProd
+    JOIN Contribucion as octr ON octr.IDProd = ctr.IDProd
+    WHERE DATE_FORMAT(ctr.Fecha, '%Y-%m-01') = DATE_ADD(DATE_FORMAT(octr.Fecha, '%Y-%m-01'), INTERVAL 1 MONTH)
+    OR DATE_FORMAT(octr.Fecha, '%Y-%m-01') = DATE_ADD(DATE_FORMAT(ctr.Fecha, '%Y-%m-01'), INTERVAL 1 MONTH)
     """
     return pd.read_sql(query, connection)
 
@@ -112,15 +111,181 @@ def Distribucion_de_Edades():#no tiene en cuenta los meses, por si cumplio anos 
     """
     return pd.read_sql(query, connection)
 
-#3-l)
-def Compras_Contradictorias():
+#3-M)
+def asd():#
     query = """
-    SELECT
-    FROM GUSTAR gus
-    JOIN Usuario usu ON gus.IDU = usu.IDU
-    JOIN Planta plt ON plt.IDProd = gus.IDProd
+    SELECT con.IDProd
+    FROM Compra com
+    JOIN Contribucion con ON con.IDProd = com.IDProd
+    WHERE con.IDU = @influencer
+    UNION
+    SELECT com.IDProd
+    FROM Compra com
+    JOIN Contribucion con ON con.IDProd = com.IDProd
+    WHERE com.IDUC = @influencer
     """
     return pd.read_sql(query, connection)
+
+#3-l)
+def Compras_Contradictorias(): #no se tiene en cuenta la cantidad de cosas que compro y revisar de todas formas 
+    query = """
+    SELECT 
+    (CASE
+        WHEN 
+            SUM(CASE WHEN com.IDProd = plt.IDProd AND com.IDProd = gus.IDProd THEN 1 ELSE 0 END) < 
+            SUM(CASE WHEN com.IDProd = plt.IDProd AND com.IDProd <> gus.IDProd THEN 1 ELSE 0 END)
+        THEN usu.IDU
+    END) as Raritos
+    FROM Usuario usu
+    JOIN Gustar gus ON gus.IDU = usu.IDU
+    JOIN Compra com ON com.IDUC = usu.IDU
+    JOIN Planta plt ON plt.IDProd = com.IDProd
+    GROUP BY usu.IDU
+    ORDER BY usu.IDU
+    """
+    return pd.read_sql(query, connection)
+
+#3-p)
+def Analisis_de_influencers_y_su_impacto_en_ventas():
+    query1 = """
+    SELECT
+    pub.IDU,
+    AVG((rcc.peso + com.cant*2)/(rcc.cant + com.cant)) AS Puntaje_de_Interacciones
+    FROM Publicacion pub
+    LEFT JOIN (
+            SELECT rcc.IDPub,
+            (COALESCE(SUM(CASE 
+                WHEN rcc.Tipo = "Me gusta" THEN 1
+                WHEN rcc.Tipo = "Me encanta" THEN 2
+                WHEN rcc.Tipo = "Me asombra" THEN 1.5 END), 0)) AS peso,
+            COALESCE(SUM(CASE WHEN rcc.Tipo IN ('Me gusta', 'Me encanta', 'Me asombra') THEN 1 END), 0) as cant
+            FROM Reaccionar rcc
+            GROUP BY rcc.IDPub) rcc ON pub.IDPub = rcc.IDPub
+    LEFT JOIN (
+        SELECT com.IDPub,
+        COALESCE(SUM( CASE WHEN com.Comentario IS NOT NULL THEN 1 ELSE 0 END), 0) AS cant
+        FROM Comentar com
+        GROUP BY com.IDPub
+    ) com ON com.IDPub = pub.IDPub
+    GROUP BY pub.IDU
+    ORDER BY Puntaje_de_Interacciones DESC
+    LIMIT 5
+    """
+    query2 = """
+    SELECT con.IDProd
+    FROM Contribucion con
+    WHERE con.IDU = @influencer
+    UNION
+    SELECT com.IDProd
+    FROM Compra com
+    WHERE com.IDUC = @influencer
+    """
+
+    #las subconsultas son el query2, arregla eso si puedes para que sea mas legible
+    for_query3 = """
+    SELECT com.Fecha
+    FROM Compra com
+    WHERE com.IDU = @influencer
+    AND com.IDProd in (
+        SELECT con.IDProd
+        FROM Contribucion con
+        WHERE con.IDU = @influencer
+        UNION
+        SELECT com.IDProd
+        FROM Compra com
+        WHERE com.IDUC = @influencer)
+    UNION
+    SELECT ctr.Fecha
+    FROM Contribucion ctr
+    WHERE ctr.IDU = @influencer
+    AND ctr.IDProd in (
+        SELECT con.IDProd
+        FROM Contribucion con
+        WHERE con.IDU = @influencer
+        UNION
+        SELECT com.IDProd
+        FROM Compra com
+        WHERE com.IDUC = @influencer)
+    """
+    #for_query3 es para llamarlo para usarlo aqui
+    query3 = """
+    CREATE TEMPORARY TABLE fechas_acciones AS
+    SELECT com.Fecha
+    FROM Compra com
+    WHERE com.IDU = @influencer
+    AND com.IDProd in (
+        SELECT con.IDProd
+        FROM Contribucion con
+        WHERE con.IDU = @influencer
+        UNION
+        SELECT com.IDProd
+        FROM Compra com
+        WHERE com.IDUC = @influencer)
+    UNION
+    SELECT ctr.Fecha
+    FROM Contribucion ctr
+    WHERE ctr.IDU = @influencer
+    AND ctr.IDProd in (
+        SELECT con.IDProd
+        FROM Contribucion con
+        WHERE con.IDU = @influencer
+        UNION
+        SELECT com.IDProd
+        FROM Compra com
+        WHERE com.IDUC = @influencer);
+
+
+
+
+    WITH periodos AS (
+    SELECT 
+        fa.Fecha as fecha_publicacion,
+        (
+        SELECT COUNT(*)
+        FROM Compra com
+        WHERE com.Fecha BETWEEN DATE_SUB(fa.Fecha, INTERVAL 14 DAY) AND fa.Fecha
+        AND com.IDProd IN (
+                    SELECT con.IDProd FROM Contribucion con WHERE con.IDU = @influencer
+                    UNION
+                    SELECT com.IDProd FROM Compra com WHERE com.IDUC = @influencer)
+        ) AS ventas_antes,
+        
+        (
+        SELECT COUNT(*)
+        FROM Compra c
+        WHERE c.Fecha BETWEEN DATE_ADD(fa.Fecha, INTERVAL 1 DAY) AND DATE_ADD(fa.Fecha, INTERVAL 14 DAY)
+        AND c.IDProd IN (
+                SELECT con.IDProd FROM Contribucion con WHERE con.IDU = @influencer
+                UNION
+                SELECT com.IDProd FROM Compra com WHERE com.IDUC = @influencer)
+        ) AS ventas_despues
+    FROM fechas_acciones fa)
+    
+    
+    SELECT fecha_publicacion, ventas_antes, ventas_despues,
+    CASE 
+        WHEN ventas_antes = 0 THEN 
+            CASE WHEN ventas_despues > 0 THEN 100 ELSE 0 END
+        ELSE ((ventas_despues - ventas_antes) * 100 / ventas_antes) END AS incremento_porcentual
+    FROM periodos
+    """
+    query4 = """
+    CREATE TEMPORARY TABLE usuarios_reaccionaron AS
+    SELECT DISTINCT rcc.IDU, rcc.Fecha
+    FROM Reaccionar rcc
+    JOIN Publicacion pub ON rcc.IDPub = pub.IDPub
+    WHERE pub.IDU = @influencer;
+
+    SELECT  
+    COUNT(DISTINCT CASE WHEN EXISTS (
+        SELECT 1 
+        FROM Compra com
+        WHERE com.IDUC = ur.IDU
+        AND com.Fecha BETWEEN ur.Fecha AND DATE_ADD(ur.Fecha, INTERVAL 14 DAY)) THEN ur.IDU END) AS usuarios_compraron
+    FROM usuarios_reaccionaron ur
+
+    """
+    return pd.read_sql(query1, connection)
 
 #build for query
 def change():
@@ -129,20 +294,18 @@ def change():
     """
     return pd.read_sql(query, connection)
 ##############################
-candela = """SELECT 
-    TABLE_NAME as tabla,
-    COLUMN_NAME as columna,
-    CONSTRAINT_NAME as nombre_constraint,
-    CASE 
-        WHEN CONSTRAINT_NAME = 'PRIMARY' THEN 'PRIMARY KEY'
-        WHEN REFERENCED_TABLE_NAME IS NOT NULL THEN 'FOREIGN KEY'
-        ELSE 'OTHER'
-    END as tipo_clave,
-    REFERENCED_TABLE_NAME as referencia_tabla,
-    REFERENCED_COLUMN_NAME as referencia_columna
-FROM 
-    INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-WHERE 
-    TABLE_SCHEMA = 'GreenScape'
-ORDER BY 
-    TABLE_NAME, ORDINAL_POSITION;"""
+#print(pd.read_sql("Select * from Publicacion", connection)) #tester
+print(asd())
+
+# cursor.execute("SELECT * FROM Usuario LIMIT 5")
+
+# query = """
+# SELECT P.NombreComun, G.IDU FROM Planta as P JOIN Gustar as G ON P.IDProd = G.IDProd;
+
+# """
+
+# cursor.execute(query)
+
+# rows = cursor.fetchall()
+# user_table = pd.DataFrame.from_records([row for row in rows])
+# print(user_table)
