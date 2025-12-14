@@ -134,21 +134,15 @@ class MongoDBPlantDocumentSystem:
     def search_documents(self, plant_id=None, doc_type=None, filename=None, page=1, page_size=20
                         sort_criteria="fecha_creacion", desc=True):
         query = {}
-        
         if plant_id:
             query["plant_id"] = plant_id
-        
         if doc_type:
             query["tipo_documento"] = doc_type
-        
         if filename:
             query["nombre_archivo"] = {"$regex": filename, "$options": "i"}
-        
         skip = (page - 1) * page_size
-        
         cursor = self.documents.find(query).skip(skip).limit(page_size).sort(sort_criteria, -1 if desc else 1)
         total = self.documents.count_documents(query)
-        
         return {
             "results": [self.format_document(doc) for doc in cursor],
             "total": total,
@@ -162,10 +156,8 @@ class MongoDBPlantDocumentSystem:
             "fecha_actualizacion": datetime.now(),
             "metadata": metadata_updates
         }
-        
         result = self.documents.update_one(
             {"_id": document_id},
             {"$set": update_data}
         )
-        
         return result.modified_count > 0
